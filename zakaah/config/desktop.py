@@ -23,27 +23,27 @@ def get_data():
 					"label": _("Assets Configuration"),
 					"description": _("Configure assets for Zakaah calculation")
 				},
-			{
-				"type": "doctype",
-				"name": "Zakaah Calculation Run",
-				"label": _("Calculation Runs"),
-				"description": _("Zakaah calculation runs by year")
-			},
-			{
-				"type": "doctype",
-				"name": "Zakaah Payments",
-				"label": _("Zakaah Payments"),
-				"description": _("Track and reconcile Zakaah payments")
-			},
-			{
-				"type": "doctype",
-				"name": "Zakaah Allocation History",
-				"label": _("Allocation History"),
-				"description": _("View payment allocation history")
-			}
-		]
-	}
-]
+				{
+					"type": "doctype",
+					"name": "Zakaah Calculation Run",
+					"label": _("Calculation Runs"),
+					"description": _("Zakaah calculation runs by year")
+				},
+				{
+					"type": "doctype",
+					"name": "Zakaah Payments",
+					"label": _("Zakaah Payments"),
+					"description": _("Track and reconcile Zakaah payments")
+				},
+				{
+					"type": "doctype",
+					"name": "Zakaah Allocation History",
+					"label": _("Allocation History"),
+					"description": _("View payment allocation history")
+				}
+			]
+		}
+	]
 
 
 

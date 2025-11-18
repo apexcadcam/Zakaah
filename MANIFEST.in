@@ -1,0 +1,19 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include zakaah *.css
+recursive-include zakaah *.csv
+recursive-include zakaah *.html
+recursive-include zakaah *.ico
+recursive-include zakaah *.js
+recursive-include zakaah *.json
+recursive-include zakaah *.md
+recursive-include zakaah *.png
+recursive-include zakaah *.py
+recursive-include zakaah *.svg
+recursive-include zakaah *.txt
+recursive-exclude zakaah *.pyc
+
