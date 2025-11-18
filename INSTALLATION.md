@@ -69,7 +69,28 @@ The migrations will automatically create the following DocTypes:
 
 ---
 
-## Step 6: Restart Bench
+## Step 6: Ensure Development Server is Running
+
+**Important**: The development server must be running to access your site.
+
+```bash
+# Check if server is running
+# Visit http://localhost:8000 in your browser
+# If you see "ERR_CONNECTION_REFUSED", start the server:
+
+# Option 1: Start server directly
+bench serve --port 8000
+
+# Option 2: Start all bench processes (recommended)
+bench start
+
+# Option 3: Start in background
+nohup bench serve --port 8000 >> logs/web.log 2>> logs/web.error.log &
+```
+
+**Note**: The Zakaah app will automatically check if the server is running during installation and attempt to start it if needed.
+
+## Step 7: Restart Bench (if needed)
 
 ```bash
 # Restart all services
@@ -82,7 +103,7 @@ bench restart --workers
 
 ---
 
-## Step 7: Access the App in ERPNext
+## Step 8: Access the App in ERPNext
 
 1. Log in to ERPNext
 2. You should see **"Zakaah Management"** in the module list
@@ -167,6 +188,26 @@ Check the calculated fields:
 ---
 
 ## Troubleshooting
+
+### Issue 0: "ERR_CONNECTION_REFUSED" when accessing site
+
+**Problem**: Development server is not running.
+
+**Solution**:
+```bash
+# Check if server is running
+ss -tlnp | grep :8000
+# or
+netstat -tlnp | grep :8000
+
+# If not running, start it:
+bench serve --port 8000
+
+# Or start all processes:
+bench start
+```
+
+**Prevention**: The Zakaah app automatically checks and starts the server during installation. If it fails, start manually using the commands above.
 
 ### Issue 1: DocTypes not appearing in ERPNext
 

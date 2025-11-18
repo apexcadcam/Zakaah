@@ -5,6 +5,14 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
+# Import server check utility
+try:
+	from zakaah.utils.server_check import ensure_server_running
+except ImportError:
+	# If import fails, define a dummy function
+	def ensure_server_running(*args, **kwargs):
+		return False
+
 
 def _ensure_app_in_apps_txt():
 	"""Ensure zakaah is in apps.txt - called automatically during installation."""
@@ -56,8 +64,29 @@ def after_install() -> None:
 		# Ensure app is in apps.txt before installation
 		_ensure_app_in_apps_txt()
 		
-		print("=" * 70)
+		# Check and ensure development server is running
+		print("\n🔍 Checking development server status...")
+		try:
+			server_running = ensure_server_running(port=8000, auto_start=True)
+			if not server_running:
+				print("\n⚠️  Development server is not running.")
+				print("   To start it manually, run:")
+				print("   bench serve --port 8000")
+				print("   or")
+				print("   bench start")
+		except Exception as server_error:
+			# Don't fail installation if server check fails
+			print(f"⚠️  Server check failed: {str(server_error)}")
+			print("   Installation will continue, but you may need to start the server manually.")
+		
+		print("\n" + "=" * 70)
 		print("✅ Zakaah app installed successfully!")
+		print("=" * 70)
+		print("\n📝 Next steps:")
+		print("   1. Ensure development server is running: bench serve --port 8000")
+		print("   2. Access your site at: http://localhost:8000")
+		print("   3. Clear cache: bench --site <site-name> clear-cache")
+		print("   4. Restart bench: bench restart")
 		print("=" * 70 + "\n")
 	except Exception as e:
 		import frappe
