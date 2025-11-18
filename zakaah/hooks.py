@@ -15,6 +15,10 @@ app_email = "info@zakaah.com"
 # include js in doctype views
 # doctype_js = {}
 
+# Install / Uninstall hooks
+after_install = "zakaah.install.after_install"
+before_uninstall = "zakaah.install.before_uninstall"
+
 def get_data():
 	return [
 		{

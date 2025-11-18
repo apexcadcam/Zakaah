@@ -1,0 +1,40 @@
+#!/bin/bash
+# This script runs automatically after bench get-app clones the repository
+# It ensures zakaah is in sites/apps.txt and all site-specific apps.txt files
+
+cd "$(dirname "$0")/../.." || exit
+
+# Add to global sites/apps.txt
+if [ -f "sites/apps.txt" ]; then
+    if ! grep -q "^zakaah$" sites/apps.txt; then
+        # Ensure file ends with newline before appending
+        if [ -s sites/apps.txt ]; then
+            # Remove trailing whitespace and ensure newline
+            sed -i 's/[[:space:]]*$//' sites/apps.txt
+            if [ "$(tail -c 1 sites/apps.txt)" != "" ]; then
+                echo "" >> sites/apps.txt
+            fi
+        fi
+        echo "zakaah" >> sites/apps.txt
+        echo "✅ Added zakaah to sites/apps.txt"
+    fi
+fi
+
+# Add to all site-specific apps.txt files
+for site_dir in sites/*/; do
+    if [ -d "$site_dir" ] && [ -f "${site_dir}apps.txt" ]; then
+        if ! grep -q "^zakaah$" "${site_dir}apps.txt"; then
+            # Ensure file ends with newline before appending
+            if [ -s "${site_dir}apps.txt" ]; then
+                sed -i 's/[[:space:]]*$//' "${site_dir}apps.txt"
+                if [ "$(tail -c 1 "${site_dir}apps.txt")" != "" ]; then
+                    echo "" >> "${site_dir}apps.txt"
+                fi
+            fi
+            echo "zakaah" >> "${site_dir}apps.txt"
+            site_name=$(basename "$site_dir")
+            echo "✅ Added zakaah to sites/${site_name}/apps.txt"
+        fi
+    fi
+done
+
